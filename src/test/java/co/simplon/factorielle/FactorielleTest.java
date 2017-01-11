@@ -25,7 +25,7 @@ public class FactorielleTest {
 	}
 
 	@Test
-	public void factorielle_de_1_doit_renvoyer_1() {
+	public void factorielle_de_1_doit_renvoyer_1() throws FactorielleUnavailableException {
 		// GIVEN
 		long entier = 1;
 		long resultatAttendu = 1;
@@ -38,26 +38,26 @@ public class FactorielleTest {
 	}
 
 	@Test
-	public void factorielle_de_2_doit_renvoyer_2() {
+	public void factorielle_de_2_doit_renvoyer_2() throws FactorielleUnavailableException {
 		long resultat = factorielle.calculer(2);
 
 		assertEquals(2, resultat);
 	}
 
 	@Test
-	public void factorielle_de_3_doit_renvoyer_6() {
+	public void factorielle_de_3_doit_renvoyer_6() throws FactorielleUnavailableException{
 		// Si le test échoue, je peux afficher un message personnalisé
 		assertEquals("Le résultat pour 3 devrait être 6.", 6,
 				factorielle.calculer(3));
 	}
 
 	@Test
-	public void factorielle_de_18_doit_renvoyer_6402373705728000() {
+	public void factorielle_de_18_doit_renvoyer_6402373705728000() throws FactorielleUnavailableException {
 		assertEquals(6402373705728000l, factorielle.calculer(18));
 	}
 
 	@Test
-	public void factorielle_de_0_doit_renvoyer_1() {
+	public void factorielle_de_0_doit_renvoyer_1() throws FactorielleUnavailableException {
 		// si le test ne passe pas, je n'ai pas de message clair m'indiquant ce
 		// qui était attendu et ce qui a été évalué
 		assertTrue(factorielle.calculer(0) == 1);
@@ -71,18 +71,18 @@ public class FactorielleTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void factorielle_d_un_nombre_negatif_doit_declencher_une_exception() {
+	public void factorielle_d_un_nombre_negatif_doit_declencher_une_exception() throws FactorielleUnavailableException{
 		factorielle.calculer(-1);
 	}
 	
 	@Test(timeout=1) 
-	public void factorielle_18_repete_100_fois_doit_sexecuter_en_moints_de_10_ms() {
+	public void factorielle_18_repete_100_fois_doit_sexecuter_en_moints_de_10_ms() throws FactorielleUnavailableException {
 		for (int i = 1 ; i<= 100 ; i++)
 			factorielle.calculer(18);
 	}
 	
 	@Test
-	public void factorielle_de_18_doit_renvoyer_6402373705728000_avec_hamcrest() {
+	public void factorielle_de_18_doit_renvoyer_6402373705728000_avec_hamcrest() throws FactorielleUnavailableException {
 		// GIVEN
 		long entier = 18;
 		long resultatAttendu = 6402373705728000l;
@@ -95,4 +95,18 @@ public class FactorielleTest {
 		assertThat(resultat == resultatAttendu, is(true));
 	}
 
+	@Test (expected = FactorielleUnavailableException.class)
+	public void factorielle_de_50_doit_declencher_exception () throws FactorielleUnavailableException {
+		
+		
+	        long resultat = factorielle.calculer(50);
+	}     
+	      
+	@Test (expected = FactorielleUnavailableException.class)
+	public void AutreException () throws FactorielleUnavailableException {
+		factorielle.calculer(50);
+
+	}
+	
+	
 }
